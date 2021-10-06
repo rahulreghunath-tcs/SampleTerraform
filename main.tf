@@ -9,6 +9,7 @@ variable "prefix"{
 
 data "azurerm_resource_group" "example" {
   name = "Devops_Kochi"
+  location = "East US"
   }
 
 resource "azurerm_virtual_network" "example" {
