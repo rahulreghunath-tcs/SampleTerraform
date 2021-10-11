@@ -15,7 +15,7 @@ variable "prefix"{
   default = "rahul"
 }
 
-data "azurerm_resource_group" "${var.prefix}rg" {
+data "azurerm_resource_group" "rahulrg" {
   name = "Devops_Kochi"
 }
 
