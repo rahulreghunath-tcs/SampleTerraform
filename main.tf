@@ -15,15 +15,15 @@ variable "prefix"{
   default = "rahul"
 }
 
-data "azurerm_resource_group" "${var.prefix}-rg" {
+data "azurerm_resource_group" "${var.prefix}rg" {
   name = "Devops_Kochi"
 }
 
 resource "azurerm_virtual_network" "rahulvnet" {
   name                = "rahulvnet-1"
   address_space       = ["10.0.0.0/16"] #this is a list item
-  location            = data.azurerm_resource_group.rahul-rg.location
-  resource_group_name = data.azurerm_resource_group.rahul-rg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
   tags                ={ 
                         "Name" = "rahulvnet-1"
                         }
@@ -31,15 +31,15 @@ resource "azurerm_virtual_network" "rahulvnet" {
 
 resource "azurerm_subnet" "rahulsubnet" {
   name                 = "rahulsubnet-1"
-  resource_group_name  = data.azurerm_resource_group.rahul-rg.name
+  resource_group_name  = data.azurerm_resource_group.rahulrg.name
   virtual_network_name = azurerm_virtual_network.rahulvnet.name
   address_prefixes     = ["10.0.2.0/24"]
 }
 
 resource "azurerm_network_interface" "rahul-nic" {
   name                = "rahul-nic"
-  location            = data.azurerm_resource_group.rahul-rg.location
-  resource_group_name = data.azurerm_resource_group.rahul-rg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
 
   ip_configuration {
     name                          = "internal"
@@ -50,8 +50,8 @@ resource "azurerm_network_interface" "rahul-nic" {
 
 resource "azurerm_windows_virtual_machine" "rahulvm" {
   name                = "rahul-machine"
-  resource_group_name = data.azurerm_resource_group.rahul-rg.name
-  location            = data.azurerm_resource_group.rahul-rg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
   size                = "Standard_F2"
   admin_username      = "adminuser"
   admin_password      = "P@$$w0rd1234!"
