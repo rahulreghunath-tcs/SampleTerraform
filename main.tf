@@ -18,7 +18,7 @@ resource "azurerm_virtual_network" "rahulvnet" {
   location            = data.azurerm_resource_group.rahulrg.location
   resource_group_name = data.azurerm_resource_group.rahulrg.name
   tags                ={ 
-                        "Name" = "rahulvnet-1"
+                        "env" = "rahuldev"
                         }
 }
 
@@ -27,17 +27,34 @@ resource "azurerm_subnet" "rahulsubnet" {
   resource_group_name  = data.azurerm_resource_group.rahulrg.name
   virtual_network_name = azurerm_virtual_network.rahulvnet.name
   address_prefixes     = ["10.0.2.0/24"]
+   tags                ={ 
+                        "env" = "rahuldev"
+                        }
+}
+resource "azurerm_public_ip" "rahulpublicip" {
+  name                = "rahulPublicIp1"
+  resource_group_name = azurerm_resource_group.rahulrg.name
+  location            = azurerm_resource_group.rahulrg.location
+  allocation_method   = "Static"
+
+  tags = {
+    env = "dev"
+  }
 }
 
 resource "azurerm_network_interface" "rahul-nic" {
   name                = "rahul-nic"
   location            = data.azurerm_resource_group.rahulrg.location
   resource_group_name = data.azurerm_resource_group.rahulrg.name
+   tags                ={ 
+                        "env" = "rahuldev"
+                        }
 
   ip_configuration {
     name                          = "internal"
     subnet_id                     = azurerm_subnet.rahulsubnet.id
     private_ip_address_allocation = "Dynamic"
+    private_ip_address_id         =azurerm_public_ip.rahulpublicip.id
   }
 }
 
@@ -63,4 +80,7 @@ resource "azurerm_windows_virtual_machine" "rahulvm" {
     sku       = "2016-Datacenter"
     version   = "latest"
   }
+   tags                ={ 
+                        "env" = "rahuldev"
+                        }
 }
