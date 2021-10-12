@@ -78,5 +78,8 @@ resource "azurerm_windows_virtual_machine" "rahulvm" {
     sku       = "2016-Datacenter"
     version   = "latest"
   }
+  tags                ={ 
+                        "env" = "rahuldev"
+                        }
    
 }
