@@ -1,4 +1,14 @@
 
+terraform {
+  backend "azurerm" {
+    resource_group_name  = "Devops_Kochi"
+    storage_account_name = "rahul1storageaccount"
+    container_name       = "blobcontainer"
+    key                  = "terraform.tfstate"
+  }
+}
+
+
 provider "azurerm" {
   version = "~>2.0"
   skip_provider_registration = true
@@ -78,8 +88,7 @@ resource "azurerm_windows_virtual_machine" "rahulvm" {
     sku       = "2016-Datacenter"
     version   = "latest"
   }
-  tags                ={ 
+   tags                ={ 
                         "env" = "rahuldev"
                         }
-   
 }
