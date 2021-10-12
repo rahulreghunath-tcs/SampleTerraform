@@ -67,7 +67,7 @@ resource "azurerm_network_interface" "rahul-nic" {
 }
 
 resource "azurerm_windows_virtual_machine" "rahulvm" {
-  name                = "rahul-machine"
+  name                = "rahulmachine"
   resource_group_name = data.azurerm_resource_group.rahulrg.name
   location            = data.azurerm_resource_group.rahulrg.location
   size                = "Standard_F2"
