@@ -21,8 +21,8 @@ data "azurerm_resource_group" "rahulrg" {
 
 resource "azurerm_app_service_plan" "rahulappserviceplan" {
   name                = "rahul-appserviceplan"
-  location            = azurerm_resource_group.rahulrg.location
-  resource_group_name = azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
 
   sku {
     tier = "Standard"
@@ -31,8 +31,8 @@ resource "azurerm_app_service_plan" "rahulappserviceplan" {
 }
 resource "azurerm_app_service" "rahulappservice" {
   name                = "rahul-app-service"
-  location            = azurerm_resource_group.rahulrg.location
-  resource_group_name = azurerm_resource_group.rahulrg.name
+  location            = data.azurerm_resource_group.rahulrg.location
+  resource_group_name = data.azurerm_resource_group.rahulrg.name
   app_service_plan_id = azurerm_app_service_plan.rahulappserviceplan.id
 
   site_config {
